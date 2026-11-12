@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="130mm" height="52mm" viewBox="0 0 130 52" font-family="'Times New Roman', Times, serif" style="white-space:pre">
+<rect x="8" y="44" width="114" height="5" rx="1.2" fill="#ffffff" stroke="#404040" stroke-width="0.35"/>
+<path d="M36 13.5 L44 13.5 L44 19 L51.3 19" fill="none" stroke="#1c4f8f" stroke-width="0.8"/>
+<polygon points="53,19 51,19.95 51,18.05" fill="#1c4f8f"/>
+<path d="M36 34.5 L46 34.5 L46 31 L51.3 31" fill="none" stroke="#1c4f8f" stroke-width="0.8"/>
+<polygon points="53,31 51,31.95 51,30.05" fill="#1c4f8f"/>
+<path d="M77 25 L92.3 25" fill="none" stroke="#1c4f8f" stroke-width="0.8"/>
+<polygon points="94,25 92,25.95 92,24.05" fill="#1c4f8f"/>
+<path d="M103.71000000000001 46.5 L107.51 46.5" fill="none" stroke="#1c4f8f" stroke-width="0.8"/>
+<polygon points="109.21000000000001,46.5 107.21000000000001,47.45 107.21000000000001,45.55" fill="#1c4f8f"/>
+<rect x="8" y="9" width="28" height="9" rx="0" fill="#d8d8d8" stroke="#1a1a1a" stroke-width="0.35"/>
+<rect x="8" y="30" width="28" height="9" rx="0" fill="#d8d8d8" stroke="#1a1a1a" stroke-width="0.35"/>
+<rect x="53" y="14" width="24" height="22" rx="0.9" fill="#ffffff" stroke="#1a1a1a" stroke-width="0.35"/>
+<rect x="94" y="20.5" width="28" height="9" rx="0" fill="#d8d8d8" stroke="#1a1a1a" stroke-width="0.35"/>
+<path d="M39.4 14.3 L40.6 12.7" fill="none" stroke="#1a1a1a" stroke-width="0.23"/>
+<path d="M39.4 35.3 L40.6 33.7" fill="none" stroke="#1a1a1a" stroke-width="0.23"/>
+<path d="M84.4 25.8 L85.6 24.2" fill="none" stroke="#1a1a1a" stroke-width="0.23"/>
+<rect x="19.315" y="45.2" width="4" height="2.6" rx="0.5" fill="#d8d8d8" stroke="#1a1a1a" stroke-width="0.35"/>
+<rect x="61.43750000000001" y="45.2" width="4" height="2.6" rx="0.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="0.35"/>
+<text x="40.9" y="12.5" text-anchor="start" font-size="2.001" fill="#1a1a1a"><tspan>16</tspan></text>
+<text x="40.9" y="33.5" text-anchor="start" font-size="2.001" fill="#1a1a1a"><tspan>16</tspan></text>
+<text x="85.9" y="24" text-anchor="start" font-size="2.001" fill="#1a1a1a"><tspan>16</tspan></text>
+<text x="10" y="47.3" text-anchor="start" font-size="2.3" font-weight="bold" fill="#1a1a1a"><tspan>Legend</tspan></text>
+<text x="24.215000000000003" y="47.3" text-anchor="start" font-size="2.3" fill="#1a1a1a"><tspan>register</tspan></text>
+<text x="66.3375" y="47.3" text-anchor="start" font-size="2.3" fill="#1a1a1a"><tspan>compute</tspan></text>
+<text x="110.31" y="47.3" text-anchor="start" font-size="2.3" fill="#1a1a1a"><tspan>16-bit data</tspan></text>
+<text x="22" y="14.259" text-anchor="middle" font-size="2.3" font-weight="bold" fill="#1a1a1a"><tspan>Operand A</tspan></text>
+<text x="22" y="35.259" text-anchor="middle" font-size="2.3" font-weight="bold" fill="#1a1a1a"><tspan>Operand B</tspan></text>
+<text x="65" y="25.759" text-anchor="middle" font-size="2.3" font-weight="bold" fill="#1a1a1a"><tspan>ALU</tspan></text>
+<text x="108" y="25.759" text-anchor="middle" font-size="2.3" font-weight="bold" fill="#1a1a1a"><tspan>Result</tspan></text>
+</svg>

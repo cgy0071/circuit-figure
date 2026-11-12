@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="106mm" height="49mm" viewBox="0 0 106 49" font-family="'Times New Roman', Times, serif" style="white-space:pre">
+<path d="M12 13.5 L28.81 13.5" fill="none" stroke="#1a1a1a" stroke-width="0.35"/>
+<polygon points="30,13.5 28.6,14.1 28.6,12.9" fill="#1a1a1a"/>
+<path d="M12 18.5 L28.81 18.5" fill="none" stroke="#1a1a1a" stroke-width="0.35"/>
+<polygon points="30,18.5 28.6,19.1 28.6,17.9" fill="#1a1a1a"/>
+<path d="M40 16 L52 16 L52 20.5 L64.56 20.5" fill="none" stroke="#1a1a1a" stroke-width="0.35"/>
+<polygon points="65.75,20.5 64.35,21.1 64.35,19.9" fill="#1a1a1a"/>
+<path d="M12 36 L59 36 L59 25.5 L64.56 25.5" fill="none" stroke="#1a1a1a" stroke-width="0.35"/>
+<polygon points="65.75,25.5 64.35,26.1 64.35,24.9" fill="#1a1a1a"/>
+<path d="M75 23 L93.81 23" fill="none" stroke="#1a1a1a" stroke-width="0.35"/>
+<polygon points="95,23 93.6,23.6 93.6,22.4" fill="#1a1a1a"/>
+<path d="M30 11 L30 21 L35 21 L36.545084971874736 20.755282581475768 L37.93892626146236 20.045084971874736 L39.045084971874736 18.938926261462367 L39.75528258147577 17.545084971874736 L40 16 L39.75528258147577 14.454915028125264 L39.045084971874736 13.061073738537633 L37.93892626146236 11.954915028125264 L36.545084971874736 11.244717418524232 L35 11 Z" fill="#ebf1df" stroke="#4d8a3a" stroke-width="0.35"/>
+<path d="M65 18 L65.36 19 L65.64 20 L65.84 21 L65.96 22 L66 23 L65.96 24 L65.84 25 L65.64 26 L65.36 27 L65 28 L66.405 27.950000000000003 L67.72 27.8 L68.945 27.55 L70.08 27.2 L71.125 26.75 L72.08 26.2 L72.945 25.55 L73.72 24.8 L74.405 23.95 L75 23 L74.405 22.05 L73.72 21.2 L72.945 20.45 L72.08 19.8 L71.125 19.25 L70.08 18.8 L68.94500000000001 18.45 L67.72 18.2 L66.405 18.05 Z" fill="#ebf1df" stroke="#4d8a3a" stroke-width="0.35"/>
+<text x="8" y="14.3" text-anchor="start" font-size="2.3" fill="#1a1a1a"><tspan>a</tspan></text>
+<text x="8" y="19.3" text-anchor="start" font-size="2.3" fill="#1a1a1a"><tspan>b</tspan></text>
+<text x="8" y="36.8" text-anchor="start" font-size="2.3" fill="#1a1a1a"><tspan>c</tspan></text>
+<text x="97" y="23.8" text-anchor="start" font-size="2.3" fill="#1a1a1a"><tspan>y</tspan></text>
+<text x="53" y="44" text-anchor="middle" font-size="2.3" fill="#1a1a1a"><tspan>y = (a AND b) OR c</tspan></text>
+
+</svg>

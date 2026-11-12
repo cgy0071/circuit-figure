@@ -5,12 +5,21 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import example from '../examples/example_pipeline.mjs';
+import datapath from '../examples/example_datapath.mjs';
+import logic from '../examples/example_logic.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'circuit-figure-'));
 const builder = path.join(root, 'lib/build.mjs');
 const run = (...args) => spawnSync(process.execPath, [builder, ...args], { encoding: 'utf8' });
 try {
+  for (const [name, make] of Object.entries({ example_pipeline: example, example_datapath: datapath, example_logic: logic })) {
+    const preview = make();
+    assert.deepEqual(preview.crossings(), [], `${name}: wire crossings`);
+    assert.deepEqual(preview.warnings, [], `${name}: drawing warnings`);
+    const stored = fs.readFileSync(path.join(root, 'docs/images', name + '.svg'), 'utf8');
+    assert.equal(stored, preview.svg() + '\n', `${name}: run node examples/build_gallery.mjs`);
+  }
   const fig = example();
   assert.equal(fig.crossings().length, 0);
   assert.deepEqual(fig.warnings, []);
@@ -38,7 +47,7 @@ export function crossing() { const f = make(); f.line([[2, 10], [28, 10]]); f.li
   result = run(fixture, '--out', temp, '--name', 'crossing', '--export', 'crossing', '--no-png', '--strict');
   assert.equal(result.status, 1, result.stderr + result.stdout);
   assert.match(result.stdout, /crossings=1/);
-  console.log('SMOKE_PASS: example, parts, named export, output name, no-png, strict crossings');
+  console.log('SMOKE_PASS: gallery freshness, example, parts, named export, output name, no-png, strict crossings');
 } finally {
   fs.rmSync(temp, { recursive: true, force: true });
 }
