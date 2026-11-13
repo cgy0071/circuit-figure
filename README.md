@@ -111,6 +111,14 @@ output files of the same name are replaced; choose a fresh output directory.
 
 ## Validation and limits
 
+GitHub Actions runs the portable smoke tests, JavaScript and Python syntax
+checks, and a strict HTML/JSON example build on Windows and Linux with Node.js
+22 and 24. Checks run for pull requests and pushes to `main`, and can also be
+started manually from the Actions tab. PNG rendering and Visio COM export
+require separate validation in an environment with those applications installed.
+Dependabot checks the pinned GitHub Actions dependencies weekly and opens
+update pull requests.
+
 For this publication, the bundled example built with zero detected crossings
 and no drawing warnings; its HTML/JSON and an Edge-rendered PNG were checked,
 and the PNG was visually inspected. Run the portable smoke checks with:
