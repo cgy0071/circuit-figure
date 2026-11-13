@@ -1,0 +1,34 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import { Fig, C, stylePreset, setStyle, theme } from '../lib/figlib.mjs';
+import paper from '../examples/example_paper_style.mjs';
+
+const preview = paper();
+assert.deepEqual(preview.crossings(), []);
+assert.deepEqual(preview.warnings, []);
+assert.equal(fs.readFileSync(new URL('../docs/images/example_paper_style.svg', import.meta.url), 'utf8'), preview.svg() + '\n');
+
+stylePreset('paper-bold');
+const figure = new Fig(60, 30, 'Optional style');
+figure.mem(2, 2, 20, 8, 'RAM');
+figure.text(2, 20, 'Chinese labels');
+const data = JSON.parse(figure.json());
+assert.equal(data.fontAsian, 'SimSun');
+assert.equal(data.prims.find(p => p.type === 'text').bold, true);
+assert.match(figure.svg(), /fill="#ffffff">.*RAM/);
+assert.match(figure.svg(), /'SimSun'/);
+stylePreset('default');
+const normal = new Fig(60, 30);
+normal.mem(2, 2, 20, 8, 'RAM');
+normal.text(2, 20, 'Normal');
+assert.equal(JSON.parse(normal.json()).fontAsian, undefined);
+assert.equal(normal.prims.find(p => p.type === 'text').bold, false);
+assert.equal(C.mem, '#cfe5f6');
+theme('paper-bold');
+theme('mono');
+assert.equal(C.memText, null);
+setStyle({ fontAsian: 'SimSun' });
+assert.equal(JSON.parse(normal.json()).fontAsian, 'SimSun');
+stylePreset('default');
+assert.throws(() => stylePreset('unknown'), /unknown style/);
+console.log('STYLE_PASS: optional preset, reset, Chinese font, memory contrast');

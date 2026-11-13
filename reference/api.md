@@ -10,6 +10,8 @@ Line weights given as `sw` / `w`: values up to 0.22 map to `LW.cell`, up to 0.3 
 | `new Fig(w, h, title)` | Create a figure of w x h mm. |
 | `setStyle({ fs, sub, font, dash, main, cell, uprightSubs })` | Set font size, subscript size, font, dash array, line weights, upright subscripts. Call before drawing. |
 | `theme(name or object, extra)` | Set colours: `'pastel'`, `'mono'`, or an object of `C` keys. |
+| `stylePreset(name)` | Apply `'paper-bold'` (optional personal style) or reset with `'default'`. Process-wide; render before switching. |
+| `setStyle({ fontAsian, bold })` | Set an independent East Asian font and default free-text weight; use `fontAsian: null` / `bold: false` to reset. |
 | `C` | Current colours (`ink, mem, memStroke, op, opStroke, ctl, ctlStroke, cmpFill, cmpStroke, region, regionStroke, panelStroke, bus, busAlt, ctlLine, bitOn, white`). |
 | `LW`, `FS`, `SUB`, `FONT`, `DASH` | Current style values. |
 | `MIN_ARROW_SEG` | Shortest arrow-ending segment (3.5 mm) before a warning. |
@@ -25,6 +27,7 @@ Line weights given as `sw` / `w`: values up to 0.22 map to `LW.cell`, up to 0.3 
 | `rect(x, y, w, h, { fill, stroke, sw, rx, layer })` | Plain rectangle. |
 | `text(x, y, s, { anchor, bold, size, fill })` | Free text; y is the baseline; anchor `start` / `middle` / `end`. |
 | `box(x, y, w, h, label, o)` | Rectangle with centred label (string or array of lines). |
+| `box(..., { textFill })` | Override the label colour in SVG and Visio; useful for dark fills. |
 | `mem(x, y, w, h, label, o)` | Memory block (square corners, memory colours). |
 | `unit(x, y, w, h, label, o)` | Processing unit (rounded corners). |
 | `ctl(x, y, w, h, label, o)` | Flag / selector block. |

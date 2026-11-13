@@ -96,18 +96,54 @@ export `parts` to generate separate panels from the same drawing functions.
 
 ## Optional Visio export
 
-Requires Windows, an installed Microsoft Visio, Python and `pywin32` in that
+Requires Windows, Microsoft Visio 2013 or newer, Python and `pywin32` in that
 Python environment. These dependencies are separate from the HTML/PNG route.
 
 ```sh
 python lib/to_visio.py examples/out/example_pipeline.json --out examples/out
 ```
 
-This writes `.vsdx` and a Visio-rendered `_visio.png`. Use `--no-png` for only
-Visio, or `--visio PATH --require-version 16` to select/check the application.
-The exporter can attach to an existing Visio instance and temporarily changes
-its alert/export settings. Use a separate session with your work saved. Existing
-output files of the same name are replaced; choose a fresh output directory.
+This writes `.vsdx` and a Visio-rendered `_visio.png` in a dedicated invisible
+Visio session, which is closed after export or failure. Use `--no-png` for only
+Visio, `--require-version 16` to check the registered application, and
+`--font-asian SimSun` to override the Chinese/East Asian font.
+
+The entire output batch is checked before starting Visio. Existing requested
+outputs are rejected unless `--overwrite` is passed. With `--no-png`, existing
+PNG previews are left alone. Duplicate output paths within a batch are rejected.
+
+`--attach` explicitly enables the previous shared-session route. It restores
+the alert setting, retains the session's raster resolution, and never quits the
+shared application. `--dpi` applies to private sessions only. Selecting an
+executable with `--visio PATH` requires `--attach`; private sessions use the
+registered COM server. With multiple Office versions, the registered server
+may differ from the latest installed executable; version errors report it.
+
+## Optional personal style
+
+`paper-bold` offers grey modules, dark memory blocks with white labels, bold
+text, blue region outlines and separate Times New Roman / SimSun fonts:
+
+![Optional bold personal style with bilingual labels and dark memory blocks.](docs/images/example_paper_style.svg)
+
+```js
+import { Fig, stylePreset } from './lib/figlib.mjs';
+stylePreset('paper-bold');
+const f = new Fig(120, 35, 'My figure');
+f.mem(8, 13, 25, 10, 'Input');
+```
+
+See [the bilingual example](examples/example_paper_style.mjs). Build it with
+`node lib/build.mjs examples/example_paper_style.mjs --out out/paper --strict`.
+Sizes are specified at the final figure scale; this is an adapted preset,
+not an exact reproduction of another author's large-canvas layout. Use
+`stylePreset('default')` before drawing the next figure to restore the base
+style. Presets and `setStyle()` are process-wide: render/export a figure before
+switching them. `theme('paper-bold')` changes colours only; for independent
+font control use `setStyle({ fontAsian: 'SimSun' })`.
+
+The optional style and export improvements were informed by
+[visio-sci-figure](https://github.com/1183029827/visio-sci-figure).
 
 ## Validation and limits
 
@@ -117,15 +153,20 @@ and the PNG was visually inspected. Run the portable smoke checks with:
 
 ```sh
 node tests/smoke.mjs
+node tests/style.mjs
+python -B -m unittest discover -s tests -p "test_*.py" -v
 ```
 
 The smoke checks cover the example, split-panel output, named exports, custom
 output names, HTML/JSON-only mode and strict rejection of crossing wires. They
 do not cover every library function, option combination, font or operating
 system. Crossing checks concern recorded wires, not electrical validity or all
-visual overlaps. The Visio exporter was syntax-checked but not executed for
-this publication; its Python COM dependency was unavailable in the validation
-environment. Existing local generated files are not used as proof of an export.
+visual overlaps. Offline Visio tests cover overwrite protection, output-path
+collisions, bilingual font mapping, failure cleanup and session ownership.
+They use fake COM objects and do not establish rendering fidelity. The optional
+style was browser-rendered and visually inspected; a live Visio check detected
+a registered Visio 12.0 COM server, so a successful VSDX export with the updated
+exporter has not yet been verified on Visio 2013 or newer.
 
 ## Repository contents
 
