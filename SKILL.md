@@ -33,7 +33,9 @@ python <skill>/lib/to_visio.py <dir>/<name>.json [more.json ...] [--out DIR] [--
 
 - A figure module imports `figlib.mjs` and exports a function returning a `Fig` (`export default`, or name it with `--export`). An optional `export const parts = { a: () => Fig, ... }` gives sub-figures `<name>_a` etc.
 - `build.mjs` prints size, `crossings=N` with their coordinates, long horizontal tracks and warnings (short arrow segments, legend overflow). `--strict` exits 1 on any crossing or warning. PNG needs Chrome or Edge (`--chrome` or `$CHROME`).
-- `to_visio.py` needs Windows, Visio and a Python with `pywin32`. If the default `python` lacks it, use another interpreter that has it. With several Visio versions installed, pass `--visio` and `--require-version`. If Visio is unavailable, deliver HTML/PNG and say the Visio export was not made.
+- `to_visio.py` needs Windows, Visio and a Python with `pywin32`. If the default `python` lacks it, use another interpreter that has it. Use `--require-version` to check the application. If Visio is unavailable, deliver HTML/PNG and say the Visio export was not made.
+- Visio export defaults to a private invisible session and requires Visio 2013 or newer. It refuses existing requested outputs unless `--overwrite` is explicit. `--visio PATH` requires `--attach`; shared sessions are never quit and retain their raster resolution. Use `--font-asian SimSun` or `setStyle({ fontAsian: 'SimSun' })` for Chinese labels.
+- Personal styling is optional: `stylePreset('paper-bold')` adds bold text, grey modules, dark memories with white labels and blue region outlines. Apply it before drawing; render before switching to `stylePreset('default')`. Use the author's supplied style when one exists.
 - Copy `lib/` next to the figure sources of a project (or import it by path) so the figure can be rebuilt later.
 
 ## Drawing rules
