@@ -5,6 +5,45 @@ architecture figures. Describe the design, fix its connections, and generate
 HTML with inline vector SVG, a PNG preview and a JSON drawing record. An
 optional Windows exporter recreates the drawing as editable Visio shapes.
 
+## Example gallery
+
+These previews are generated with the bundled library. Follow the source links
+to reuse or adapt each drawing.
+
+### Control block and parallel workers
+
+![Control block dispatching work to three workers, with state and hold registers and a completion feedback bus.](docs/images/example_pipeline.svg)
+
+A control region combines stored state and logic gates to dispatch work to
+three workers. Separate bus and control tracks show the completion feedback.
+[Drawing source](examples/example_pipeline.mjs).
+
+### Register datapath
+
+![Two 16-bit operand registers feeding an ALU that writes a result register.](docs/images/example_datapath.svg)
+
+Two operand registers feed an ALU, which writes the result register. Thick
+wires and width labels distinguish the 16-bit data buses.
+[Drawing source](examples/example_datapath.mjs).
+
+### Combinational logic
+
+![Inputs a and b feed an AND gate; its output and input c feed an OR gate to produce y.](docs/images/example_logic.svg)
+
+Standard AND and OR symbols implement `y = (a AND b) OR c`, with orthogonal
+scalar signal wires attached to the gate boundaries.
+[Drawing source](examples/example_logic.mjs).
+
+Regenerate all committed SVG previews from the repository root:
+
+```sh
+node examples/build_gallery.mjs
+```
+
+The gallery builder rejects detected wire crossings and drawing warnings.
+To export any example as HTML/JSON and, with Chrome or Edge, PNG, use
+`lib/build.mjs` as shown below with the corresponding source path.
+
 ## Install the Skill
 
 Clone into your agent's skills directory, for example:
@@ -93,6 +132,7 @@ environment. Existing local generated files are not used as proof of an export.
 - `SKILL.md`: instructions for the drawing agent.
 - `lib/`: drawing library, builder and optional Visio exporter.
 - `examples/`: editable example source.
+- `docs/images/`: generated SVG previews displayed in this README.
 - `reference/api.md`: library reference.
 - `tests/smoke.mjs`: dependency-free smoke checks.
 
