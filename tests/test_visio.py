@@ -123,6 +123,19 @@ class VisioTests(unittest.TestCase):
         self.assertEqual(cells['Char.AsianFont'].FormulaU, '2')
         self.assertEqual(cells['Char.Color'].FormulaU, 'RGB(255,255,255)')
 
+    def test_simsun_can_use_localized_visio_name(self):
+        class FontLookupError(Exception):
+            pass
+
+        fonts = MagicMock()
+        for preferred, alternate in [('SimSun', '宋体'), ('宋体', 'SimSun')]:
+            with self.subTest(preferred=preferred):
+                fonts.reset_mock()
+                fonts.Item.side_effect = [FontLookupError(), MagicMock(ID=17)]
+                with patch.object(visio, 'pythoncom', MagicMock(com_error=FontLookupError)):
+                    self.assertEqual(visio.font_id(fonts, preferred), 17)
+                self.assertEqual(fonts.Item.call_args_list, [unittest.mock.call(preferred), unittest.mock.call(alternate)])
+
 
 if __name__ == '__main__':
     unittest.main()

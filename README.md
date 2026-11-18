@@ -7,8 +7,14 @@ optional Windows exporter recreates the drawing as editable Visio shapes.
 
 ## Example gallery
 
-These previews are generated with the bundled library. Follow the source links
-to reuse or adapt each drawing.
+Start with the example that answers your reader's question. Each preview is
+generated from editable source.
+
+| What the figure needs to explain | Example source |
+| --- | --- |
+| How modules divide work and report completion | [System overview](examples/example_pipeline.mjs) |
+| How operands move through registers and an ALU | [Register datapath](examples/example_datapath.mjs) |
+| How gates implement a Boolean expression | [Combinational logic](examples/example_logic.mjs) |
 
 ### Control block and parallel workers
 
@@ -90,6 +96,13 @@ Copy `examples/example_pipeline.mjs`, preserving its library import path, then
 change the fixed netlist, placement and wire tracks. Work in millimetres. Keep
 connections fixed while adjusting layout, and inspect each rendered result.
 
+For an optional layout reference, choose two or three figures with the same
+visual purpose from the [Top-Conf Paper Figure Gallery](https://github.com/qwdwqfwq/topconf-paper-figure-gallery)
+or from hardware papers. Note a few decisions you can apply, such as module
+grouping, reading direction and placement of the main data path. Record the
+original paper links. Verify signal directions, widths and endpoints against
+the RTL or specification, then apply the layout decisions and run `--strict`.
+
 [reference/api.md](reference/api.md) lists shapes, gates, wires, text, styles
 and diagnostic helpers. `lib/build.mjs` documents its CLI flags. A module may
 export `parts` to generate separate panels from the same drawing functions.
@@ -106,7 +119,8 @@ python lib/to_visio.py examples/out/example_pipeline.json --out examples/out
 This writes `.vsdx` and a Visio-rendered `_visio.png` in a dedicated invisible
 Visio session, which is closed after export or failure. Use `--no-png` for only
 Visio, `--require-version 16` to check the registered application, and
-`--font-asian SimSun` to override the Chinese/East Asian font.
+`--font-asian SimSun` to override the Chinese/East Asian font. The exporter
+accepts `SimSun` and `宋体` for the same font on localized Visio installations.
 
 The entire output batch is checked before starting Visio. Existing requested
 outputs are rejected unless `--overwrite` is passed. With `--no-png`, existing
@@ -118,6 +132,23 @@ shared application. `--dpi` applies to private sessions only. Selecting an
 executable with `--visio PATH` requires `--attach`; private sessions use the
 registered COM server. With multiple Office versions, the registered server
 may differ from the latest installed executable; version errors report it.
+
+### Experimental VSDX without Visio
+
+The standard-library Python prototype writes a native single-page VSDX from
+the bilingual example. Visio is only needed to inspect or edit the output.
+
+```sh
+node lib/build.mjs examples/example_paper_style.mjs --out out/paper --strict --no-png
+python examples/prototype_vsdx.py out/paper/example_paper_style.json out/paper/native.vsdx --glue 3 5 6 --glue 4 6 7
+```
+
+Each `--glue` names the wire, its start block and its end block by one-based
+position in the JSON primitive list. The prototype supports rectangles and
+lines, with optional endpoint glue for two-point lines. Use the COM exporter
+for other primitive types or a Visio-rendered PNG. The native package approach
+was inspired by [FigureForge's editable export](https://github.com/qwdwqfwq/topconf-paper-figure-gallery/blob/main/forge/EDITABLE_EXPORT.md)
+and follows [Microsoft's VSDX format reference](https://learn.microsoft.com/en-us/office/client-developer/visio/introduction-to-the-visio-file-formatvsdx).
 
 ## Optional personal style
 
@@ -172,9 +203,10 @@ system. Crossing checks concern recorded wires, not electrical validity or all
 visual overlaps. Offline Visio tests cover overwrite protection, output-path
 collisions, bilingual font mapping, failure cleanup and session ownership.
 They use fake COM objects and do not establish rendering fidelity. The optional
-style was browser-rendered and visually inspected; a live Visio check detected
-a registered Visio 12.0 COM server, so a successful VSDX export with the updated
-exporter has not yet been verified on Visio 2013 or newer.
+style was checked in a browser and exported with Visio 16 using `--attach`.
+The exported VSDX was reopened to verify the bilingual labels and their fonts,
+and the Visio PNG was visually inspected. On the test machine the default COM
+registration returned Visio 12.0, so the private session rejected it.
 
 ## Repository contents
 

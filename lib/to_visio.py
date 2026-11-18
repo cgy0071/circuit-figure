@@ -247,6 +247,18 @@ def plan_outputs(sources, out=None, png=True, overwrite=False):
     return plans
 
 
+def font_id(fonts, name):
+    """Resolve the requested face, including the localized name of SimSun."""
+    aliases = {'simsun': '宋体', '宋体': 'SimSun'}
+    try:
+        return fonts.Item(name).ID
+    except pythoncom.com_error:
+        alias = aliases.get(name.casefold())
+        if alias is None:
+            raise
+        return fonts.Item(alias).ID
+
+
 def export_plans(app, plans, dash_pattern=23, font_asian=None):
     for name, fig, vsdx, png in plans:
         os.makedirs(os.path.dirname(vsdx), exist_ok=True)
@@ -256,9 +268,10 @@ def export_plans(app, plans, dash_pattern=23, font_asian=None):
             page.PageSheet.CellsU('PageWidth').FormulaU = '%g mm' % fig['w']
             page.PageSheet.CellsU('PageHeight').FormulaU = '%g mm' % fig['h']
             page.Name = name[:31]
-            font_id = doc.Fonts.Item(fig['font']).ID
-            asian_id = doc.Fonts.Item(font_asian or fig.get('fontAsian', fig['font'])).ID
-            draw(page, fig, font_id, dash_pattern, asian_id)
+            latin_id = font_id(doc.Fonts, fig['font'])
+            asian_name = font_asian or fig.get('fontAsian', fig['font'])
+            asian_id = latin_id if asian_name == fig['font'] else font_id(doc.Fonts, asian_name)
+            draw(page, fig, latin_id, dash_pattern, asian_id)
             doc.SaveAs(vsdx)
             if png:
                 page.Export(png)

@@ -32,3 +32,5 @@ jobs:
       - run: node tests/style.mjs
       - run: node tests/smoke.mjs
       - run: node lib/build.mjs examples/example_paper_style.mjs --out out/paper --no-png --strict
+      - name: Package the native VSDX example
+        run: python -B examples/prototype_vsdx.py out/paper/example_paper_style.json out/paper/native.vsdx --glue 3 5 6 --glue 4 6 7
